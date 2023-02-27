@@ -12,7 +12,7 @@ const validationSchema = Yup.object().shape({
      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   });
   
-initialValues={ email: '', password: '' }
+initialValues={ email: '', password: '',passwordConfirmation:'' }
 
 export default function SignUp(props) {
   return (
