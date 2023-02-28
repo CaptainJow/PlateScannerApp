@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
-import styles from '../../styles';
+import { View, Text, Button } from "native-base";
+export default function Home({ navigation }) {
 
-export default function Home(props) {
   return (
-    <View style={styles.container}>
-      <Text>Welcome to the Home screen!</Text>
-      <Button title="Go to Sign In" onPress={() => props.navigation.navigate('SignIn')} />
-    </View>
+      <View>
+          <Text>Hello</Text>
+          <Button onPress={() => navigation.navigate("SignIn")}>
+            Go to SignIn
+          </Button>
+      </View>
   );
 }
