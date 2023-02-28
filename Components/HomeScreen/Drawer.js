@@ -13,12 +13,12 @@ import {
   HStack,
   Divider,
   Icon,
+  View,
 } from "native-base";
 global.__reanimatedWorkletInit = () => {};
 
 import SignIn from "../Authentication/SignIn";
 import Home from "./Home";
-import SignUp from "../Authentication/SignUp";
 const Drawer = createDrawerNavigator();
 
 const getIcon = (screenName) => {
@@ -35,6 +35,7 @@ const getIcon = (screenName) => {
 };
 function CustomDrawerContent(props) {
   return (
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
     <DrawerContentScrollView {...props} safeArea>
       <VStack space="6" my="2" mx="1">
         <Box px="4">
@@ -45,11 +46,14 @@ function CustomDrawerContent(props) {
             john_doe@gmail.com
           </Text>
         </Box>
-        <VStack divider={<Divider />} space="4">
-          <VStack space="3">
+        <VStack divider={<Divider />} space="10" flex={1}>
+          <VStack
+            space="3"
+            flex={1}
+          >
             {props.state.routeNames.map((name, index) => (
               <Pressable
-              key={index}
+                key={index}
                 px="5"
                 py="3"
                 rounded="md"
@@ -61,6 +65,7 @@ function CustomDrawerContent(props) {
                 onPress={(event) => {
                   props.navigation.navigate(name);
                 }}
+                style={name === "SignIn" ? { display: 'none' } : null}
               >
                 <HStack space="7" alignItems="center">
                   <Icon
@@ -82,9 +87,34 @@ function CustomDrawerContent(props) {
               </Pressable>
             ))}
           </VStack>
+          <VStack space="3">
+            <Pressable
+              px="5"
+              py="3"
+              rounded="md"
+              onPress={() => {
+                props.navigation.navigate("SignIn");
+              }}
+            >
+              <HStack space="7" alignItems="center">
+                <Icon
+                  color="gray.500"
+                  size="5"
+                  as={<MaterialCommunityIcons name={getIcon("SignIn")} />}
+                />
+                <Text fontWeight="500" color="gray.700">
+                  Sign In
+                </Text>
+              </HStack>
+            </Pressable>
+          </VStack>
         </VStack>
       </VStack>
     </DrawerContentScrollView>
+  </View>
+  
+  
+
   );
 }
 export default function DrawerSlide() {
@@ -92,9 +122,14 @@ export default function DrawerSlide() {
   return (
     <Box  flex={1}>
     <Drawer.Navigator
+      screenOptions={({ navigation }) => ({
+        headerLeft: props => <MaterialCommunityIcons name="menu" onPress={navigation.toggleDrawer}
+        style={ { fontSize: 30  , margin: 7}}/>,
+      })}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Inbox" component={Home} />
+      <Drawer.Screen name="Is" component={Home} />
       <Drawer.Screen name="SignIn" component={SignIn}  options={{ title: '' , headerShown: false}}/>
       {/* <Drawer.Screen name="SignUp" component={SignUp} options={{ title: '', headerShown: false }} /> */}
     </Drawer.Navigator>
