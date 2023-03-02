@@ -19,6 +19,8 @@ global.__reanimatedWorkletInit = () => {};
 
 import SignIn from "../Authentication/SignIn";
 import Home from "./Home";
+import SectionLists from "../Lists/SectionList";
+
 const Drawer = createDrawerNavigator();
 
 const getIcon = (screenName) => {
@@ -29,6 +31,8 @@ const getIcon = (screenName) => {
         return "login";
     case "SignUp":
         return "account-plus-outline";
+    case "List":
+        return "format-list-bulleted";
     default:
       return undefined;
   }
@@ -129,7 +133,7 @@ export default function DrawerSlide() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Inbox" component={Home} />
-      <Drawer.Screen name="Is" component={Home} />
+      <Drawer.Screen name="List" component={SectionLists} />
       <Drawer.Screen name="SignIn" component={SignIn}  options={{ title: '' , headerShown: false}}/>
       {/* <Drawer.Screen name="SignUp" component={SignUp} options={{ title: '', headerShown: false }} /> */}
     </Drawer.Navigator>
